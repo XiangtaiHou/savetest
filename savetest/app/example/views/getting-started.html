@@ -1,0 +1,65 @@
+<head>
+  <meta charset="utf-8">
+
+  <title>My Parse App</title>
+  <meta name="description" content="My Parse App">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
+</head>
+
+<body>
+  
+  <div id="main">
+    <h1>You're ready to use Parse!</h1>
+
+    <input type="text" value="write a comment" id = "writenote" style="height:50px;width:200px;border-radius:5px;background-color: lightyellow"></input>
+
+    <br>
+    <br>
+
+    <button id="savebutton" style="height:50px; width:200px; border-radius:5px">save</button>
+
+  </div>
+
+<script type="text/javascript">
+
+// http://i.mtime.com/zhd/blog/640947/
+
+    Parse.initialize("4EwmpzaOP88GfVC4Dv8pORp5TXEFdkOSZysvHEYB", "wtQIZ2Kclhx6e1cLNJQn1zfdx2wUePqfCza0Gn1f");
+    // alert("let's go");
+
+
+    
+
+document.getElementById("savebutton").onclick = function()
+{ 
+
+    var comm = document.getElementById("writenote").value
+
+  
+
+    // alert("you typed " + comm);
+
+    var Note = Parse.Object.extend("Note");
+    var note = new Note();
+
+    note.set("comment", comm);//set value into different column in one class
+
+
+    note.save(null,{
+      success:function(note) {
+        alert('New comment created with objectId: ' + note.id);
+      },
+      error:function(note) {
+        alert('Failde to create new comment, with error code: ' + error.description);
+    }
+  });
+
+};
+    
+
+  </script>
+</body>
