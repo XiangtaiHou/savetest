@@ -17,8 +17,14 @@
 
     <input type="text" value="write a comment" id = "writenote" style="height:50px;width:200px;border-radius:5px;background-color: lightyellow"></input>
 
+    <input type="text" ng-model="yourName" placeholder="Enter a name here"  style="height:50px;width:200px;border-radius:5px">
+
+    <h1>Hello, {{ yourName }}!</h1>
+
+
     <br>
     <br>
+
 
     <button id="savebutton" style="height:50px; width:200px; border-radius:5px">save</button>
 
@@ -38,8 +44,6 @@ document.getElementById("savebutton").onclick = function()
 { 
 
     var comm = document.getElementById("writenote").value
-
-  
 
     // alert("you typed " + comm);
 
