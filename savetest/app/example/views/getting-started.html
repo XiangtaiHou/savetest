@@ -10,6 +10,7 @@
   <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
 
   <style>
+
     #main {
         margin:20px;
     }
@@ -25,12 +26,13 @@
 
     .inputfield { 
         height:50px;
+        /*margin-left: 75px;*/
         
         border-radius:5px;
         background-color: lightyellow;
     }
 
-    #sel {
+    .options {
         margin-left: 60px;
         width:200px;
 
@@ -38,25 +40,35 @@
 
 
   </style>
+
 </head>
 
 <body>
   
   <div id="main">
-    <h1>You're ready to use Parse!</h1>
-
-    <input type="text" placeholder="Enter comments" class="inputfield" id = "writenote" ></input>
-
+    
     
 
     <h1>Hello, {{ yourName }}!</h1>
 
     <input type="text" ng-model="yourName" placeholder="Enter a name here" class="inputfield">
 
+    <h1>Choose sports: {{ sportstype }}</h1>
+
+    <select name="selsport" id="selsport" onchange="look();" ng-model="sportstype" class="options">
+        <option value="Baseball">Baseball</option>
+        <option value="Football" selected>Football</option>
+        <option value="Swimming">Swimming</option>
+        <option value="Basketball">Basketball</option>
+        <option value="Jogging">Jogging</option>
+    </select>
+
+
+
 
     <h1>Maximum players: {{ maxplayer }}</h1>
 
-    <select name="sel" id="sel" onchange="look();" ng-model="maxplayer">
+    <select name="sel" id="sel" onchange="look();" ng-model="maxplayer" class="options">
         <option value="1">1</option>
         <option value="2" selected>2</option>
         <option value="3">3</option>
@@ -67,6 +79,11 @@
         <option value="8">8</option>
         <option value="9">9</option>
     </select>
+
+    <h1>Any comments?</h1>
+
+    <input type="text" placeholder="Enter comments" class="inputfield" id = "writenote" ></input>
+
 
     <br>
     <button id="savebutton">save</button>
@@ -84,20 +101,43 @@
 document.getElementById("savebutton").onclick = function()
 { 
 
-    var comm = document.getElementById("writenote").value
+    var comm = document.getElementById("writenote").value;
+    var maxp = document.getElementById("sel").value;
+    var maxpint = parseInt(maxp);
 
-    // alert("you typed " + comm);
+    var sports = document.getElementById("selsport").value;
+    //var maxpint = 6;
+    //var maxpint = Number("maxp");
 
-    var Note = Parse.Object.extend("Note");
-    var note = new Note();
+     alert("you typed " + comm + "you number is " + maxp);
 
-    note.set("comment", comm);//set value into different column in one class
 
-    note.save(null,{
-      success:function(note) {
-        alert('New comment created with objectId: ' + note.id);
+    // var Note = Parse.Object.extend("Note");
+    // var note = new Note();
+
+    var NewGame = Parse.Object.extend("NewGame");
+    var newgame = new NewGame();
+
+
+    //note.set("comment", comm);//set value into different column in one class
+
+    newgame.set("comments", comm);
+    newgame.set("maximumplayers", maxpint);
+    newgame.set("sportstype", sports);
+
+  //   note.save(null,{
+  //     success:function(note) {
+  //       alert('New comment created with objectId: ' + note.id);
+  //     },
+  //     error:function(note) {
+  //       alert('Failde to create new comment, with error code: ' + error.description);
+  //   }
+  // });
+    newgame.save(null,{
+      success:function(newgame) {
+        alert('New comment created with objectId: ' + newgame.id);
       },
-      error:function(note) {
+      error:function(newgame) {
         alert('Failde to create new comment, with error code: ' + error.description);
     }
   });
