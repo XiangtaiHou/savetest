@@ -8,6 +8,36 @@
   <link rel="stylesheet" href="css/styles.css">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
+
+  <style>
+    #main {
+        margin:20px;
+    }
+
+    #savebutton {
+        margin:20px;
+        margin-left: 60px;
+
+        height:50px;
+        width:200px;
+        border-radius:5px;
+    }
+
+    .inputfield { 
+        height:50px;
+        
+        border-radius:5px;
+        background-color: lightyellow;
+    }
+
+    #sel {
+        margin-left: 60px;
+        width:200px;
+
+    }
+
+
+  </style>
 </head>
 
 <body>
@@ -15,18 +45,33 @@
   <div id="main">
     <h1>You're ready to use Parse!</h1>
 
-    <input type="text" value="write a comment" id = "writenote" style="height:50px;width:200px;border-radius:5px;background-color: lightyellow"></input>
+    <input type="text" placeholder="Enter comments" class="inputfield" id = "writenote" ></input>
 
-    <input type="text" ng-model="yourName" placeholder="Enter a name here"  style="height:50px;width:200px;border-radius:5px">
+    
 
     <h1>Hello, {{ yourName }}!</h1>
 
+    <input type="text" ng-model="yourName" placeholder="Enter a name here" class="inputfield">
+
+
+    <h1>Maximum players: {{ maxplayer }}</h1>
+
+    <select name="sel" id="sel" onchange="look();" ng-model="maxplayer">
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+    </select>
 
     <br>
-    <br>
+    <button id="savebutton">save</button>
 
 
-    <button id="savebutton" style="height:50px; width:200px; border-radius:5px">save</button>
 
   </div>
 
@@ -34,11 +79,7 @@
 
 // http://i.mtime.com/zhd/blog/640947/
 
-    Parse.initialize("4EwmpzaOP88GfVC4Dv8pORp5TXEFdkOSZysvHEYB", "wtQIZ2Kclhx6e1cLNJQn1zfdx2wUePqfCza0Gn1f");
-    // alert("let's go");
-
-
-    
+    Parse.initialize("4EwmpzaOP88GfVC4Dv8pORp5TXEFdkOSZysvHEYB", "wtQIZ2Kclhx6e1cLNJQn1zfdx2wUePqfCza0Gn1f");    
 
 document.getElementById("savebutton").onclick = function()
 { 
@@ -52,7 +93,6 @@ document.getElementById("savebutton").onclick = function()
 
     note.set("comment", comm);//set value into different column in one class
 
-
     note.save(null,{
       success:function(note) {
         alert('New comment created with objectId: ' + note.id);
@@ -63,7 +103,6 @@ document.getElementById("savebutton").onclick = function()
   });
 
 };
-    
+</script>
 
-  </script>
 </body>
